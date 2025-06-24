@@ -5,7 +5,7 @@
     </i>
     <div class="details">
       <h3>
-        <slot name="heading"></slot>
+        <slot name="heading">22</slot>
       </h3>
       <slot></slot>
     </div>
