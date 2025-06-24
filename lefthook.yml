@@ -22,6 +22,14 @@ post-merge:
     install:
       run: pnpm install
 
+prepare-commit-msg:
+  commands:
+    commitzen:
+      interactive: true
+      run: pnpm commit
+      env:
+        LEFTHOOK: '0'
+
 commit-msg:
   commands:
     commitlint:

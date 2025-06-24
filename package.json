@@ -12,7 +12,7 @@
     "type-check": "vue-tsc --build",
     "lint": "eslint . --fix",
     "format": "prettier --write src/",
-    "prepare": "lefthook install",
+    "prepare": "husky",
     "commit": "git-cz"
   },
   "dependencies": {
@@ -61,9 +61,10 @@
     "eslint-plugin-unused-imports": "^4.1.4",
     "eslint-plugin-vue": "~10.0.0",
     "globals": "^16.2.0",
+    "husky": "^9.1.7",
     "jiti": "^2.4.2",
     "jsdom": "^26.0.0",
-    "lefthook": "1.11.12",
+    "lint-staged": "^16.1.2",
     "npm-run-all2": "^7.0.2",
     "openapi-typescript": "^7.8.0",
     "prettier": "3.5.3",
@@ -81,5 +82,32 @@
     "vitest": "^3.1.1",
     "vue-eslint-parser": "^10.1.3",
     "vue-tsc": "^2.2.8"
+  },
+  "config": {
+    "commitizen": {
+      "path": "node_modules/cz-git"
+    }
+  },
+  "lint-staged": {
+    "*.md": [
+      "prettier --cache --ignore-unknown --write"
+    ],
+    "*.vue": [
+      "prettier --write",
+      "eslint --cache --fix"
+    ],
+    "*.{js,jsx,ts,tsx}": [
+      "prettier --cache --ignore-unknown  --write",
+      "eslint --cache --fix"
+    ],
+    "*.{scss,less,html,vue,css}": [
+      "prettier --cache --ignore-unknown --write"
+    ],
+    "package.json": [
+      "prettier --cache --write"
+    ],
+    "{!(package)*.json,*.code-snippets,.!(browserslist)*rc}": [
+      "prettier --cache --write --parser json"
+    ]
   }
 }
