@@ -38,6 +38,7 @@ declare global {
   const getCurrentScope: (typeof import('vue'))['getCurrentScope']
   const h: (typeof import('vue'))['h']
   const ignorableWatch: (typeof import('@vueuse/core'))['ignorableWatch']
+  const initStores: (typeof import('../src/stores/index'))['initStores']
   const inject: (typeof import('vue'))['inject']
   const injectHead: (typeof import('@unhead/vue'))['injectHead']
   const injectLocal: (typeof import('@vueuse/core'))['injectLocal']
@@ -196,6 +197,7 @@ declare global {
   const useLink: (typeof import('vue-router/auto'))['useLink']
   const useLoadingBar: (typeof import('naive-ui'))['useLoadingBar']
   const useLocalStorage: (typeof import('@vueuse/core'))['useLocalStorage']
+  const useLockStore: (typeof import('../src/stores/modules/lock'))['useLockStore']
   const useMagicKeys: (typeof import('@vueuse/core'))['useMagicKeys']
   const useManualRefHistory: (typeof import('@vueuse/core'))['useManualRefHistory']
   const useMediaControls: (typeof import('@vueuse/core'))['useMediaControls']
@@ -224,6 +226,7 @@ declare global {
   const usePointer: (typeof import('@vueuse/core'))['usePointer']
   const usePointerLock: (typeof import('@vueuse/core'))['usePointerLock']
   const usePointerSwipe: (typeof import('@vueuse/core'))['usePointerSwipe']
+  const usePreferencesStore: (typeof import('../src/stores/modules/preferences'))['usePreferencesStore']
   const usePreferredColorScheme: (typeof import('@vueuse/core'))['usePreferredColorScheme']
   const usePreferredContrast: (typeof import('@vueuse/core'))['usePreferredContrast']
   const usePreferredDark: (typeof import('@vueuse/core'))['usePreferredDark']
@@ -278,6 +281,7 @@ declare global {
   const useTransition: (typeof import('@vueuse/core'))['useTransition']
   const useUrlSearchParams: (typeof import('@vueuse/core'))['useUrlSearchParams']
   const useUserMedia: (typeof import('@vueuse/core'))['useUserMedia']
+  const useUserStore: (typeof import('../src/stores/modules/user'))['useUserStore']
   const useVModel: (typeof import('@vueuse/core'))['useVModel']
   const useVModels: (typeof import('@vueuse/core'))['useVModels']
   const useVibrate: (typeof import('@vueuse/core'))['useVibrate']
@@ -376,6 +380,7 @@ declare module 'vue' {
     readonly getCurrentScope: UnwrapRef<(typeof import('vue'))['getCurrentScope']>
     readonly h: UnwrapRef<(typeof import('vue'))['h']>
     readonly ignorableWatch: UnwrapRef<(typeof import('@vueuse/core'))['ignorableWatch']>
+    readonly initStores: UnwrapRef<(typeof import('../src/stores/index'))['initStores']>
     readonly inject: UnwrapRef<(typeof import('vue'))['inject']>
     readonly injectHead: UnwrapRef<(typeof import('@unhead/vue'))['injectHead']>
     readonly injectLocal: UnwrapRef<(typeof import('@vueuse/core'))['injectLocal']>
@@ -480,7 +485,6 @@ declare module 'vue' {
     readonly useConfirmDialog: UnwrapRef<(typeof import('@vueuse/core'))['useConfirmDialog']>
     readonly useCountdown: UnwrapRef<(typeof import('@vueuse/core'))['useCountdown']>
     readonly useCounter: UnwrapRef<(typeof import('@vueuse/core'))['useCounter']>
-    readonly useCounterStore: UnwrapRef<(typeof import('../src/stores/counter'))['useCounterStore']>
     readonly useCssModule: UnwrapRef<(typeof import('vue'))['useCssModule']>
     readonly useCssVar: UnwrapRef<(typeof import('@vueuse/core'))['useCssVar']>
     readonly useCssVars: UnwrapRef<(typeof import('vue'))['useCssVars']>
@@ -544,6 +548,7 @@ declare module 'vue' {
     readonly useLink: UnwrapRef<(typeof import('vue-router/auto'))['useLink']>
     readonly useLoadingBar: UnwrapRef<(typeof import('naive-ui'))['useLoadingBar']>
     readonly useLocalStorage: UnwrapRef<(typeof import('@vueuse/core'))['useLocalStorage']>
+    readonly useLockStore: UnwrapRef<(typeof import('../src/stores/modules/lock'))['useLockStore']>
     readonly useMagicKeys: UnwrapRef<(typeof import('@vueuse/core'))['useMagicKeys']>
     readonly useManualRefHistory: UnwrapRef<(typeof import('@vueuse/core'))['useManualRefHistory']>
     readonly useMediaControls: UnwrapRef<(typeof import('@vueuse/core'))['useMediaControls']>
@@ -576,6 +581,9 @@ declare module 'vue' {
     readonly usePointer: UnwrapRef<(typeof import('@vueuse/core'))['usePointer']>
     readonly usePointerLock: UnwrapRef<(typeof import('@vueuse/core'))['usePointerLock']>
     readonly usePointerSwipe: UnwrapRef<(typeof import('@vueuse/core'))['usePointerSwipe']>
+    readonly usePreferencesStore: UnwrapRef<
+      (typeof import('../src/stores/modules/preferences'))['usePreferencesStore']
+    >
     readonly usePreferredColorScheme: UnwrapRef<
       (typeof import('@vueuse/core'))['usePreferredColorScheme']
     >
@@ -646,6 +654,7 @@ declare module 'vue' {
     readonly useTransition: UnwrapRef<(typeof import('@vueuse/core'))['useTransition']>
     readonly useUrlSearchParams: UnwrapRef<(typeof import('@vueuse/core'))['useUrlSearchParams']>
     readonly useUserMedia: UnwrapRef<(typeof import('@vueuse/core'))['useUserMedia']>
+    readonly useUserStore: UnwrapRef<(typeof import('../src/stores/modules/user'))['useUserStore']>
     readonly useVModel: UnwrapRef<(typeof import('@vueuse/core'))['useVModel']>
     readonly useVModels: UnwrapRef<(typeof import('@vueuse/core'))['useVModels']>
     readonly useVibrate: UnwrapRef<(typeof import('@vueuse/core'))['useVibrate']>

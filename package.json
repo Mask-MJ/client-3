@@ -11,14 +11,16 @@
     "build-only": "vite build",
     "lint": "eslint . --fix",
     "format": "prettier --write src/",
-    "lint:lint-staged": "vue-tsc && lint-staged && cspell lint **/*.ts **/*.vue --no-progress",
     "check": "run-p check:type check:cspell",
     "check:type": "vue-tsc --build",
     "check:cspell": "cspell lint .  --no-progress",
     "prepare": "husky",
-    "commit": "git-cz"
+    "commit": "git-cz",
+    "openapi": "openapi-typescript",
+    "preinstall": "npx only-allow pnpm"
   },
   "dependencies": {
+    "@ctrl/tinycolor": "^4.1.0",
     "@unhead/vue": "^2.0.10",
     "@vueuse/core": "^13.4.0",
     "@vueuse/integrations": "^13.4.0",
@@ -28,7 +30,9 @@
     "nprogress": "^0.2.0",
     "openapi-fetch": "^0.14.0",
     "pinia": "^3.0.3",
+    "theme-colors": "^0.1.0",
     "vue": "^3.5.13",
+    "vue-i18n": "^11.1.7",
     "vue-router": "^4.5.0"
   },
   "devDependencies": {
