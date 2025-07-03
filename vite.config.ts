@@ -38,7 +38,7 @@ export default defineConfig(async (config: ConfigEnv): Promise<UserConfig> => {
       VueRouter({
         dts: './types/typed-router.d.ts',
         routesFolder: [{ path: '', src: 'src/views' }],
-        // extensions: ['.page.vue'],
+        extensions: ['.page.vue'],
       }),
       Vue(),
       VueJsx(),

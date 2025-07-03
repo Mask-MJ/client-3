@@ -11,18 +11,18 @@ import { getNaiveTheme } from './config/preferences'
 const userStore = useUserStore()
 const preferencesStore = usePreferencesStore()
 const { userInfo } = storeToRefs(userStore)
-const { app, theme } = storeToRefs(preferencesStore)
+const { state } = storeToRefs(preferencesStore)
 const naiveTheme = computed(() => {
-  const { error, info, primary, success, warning } = theme.value
+  const { error, info, primary, success, warning } = state.value.theme
   return getNaiveTheme({ error, info, primary, success, warning })
 })
 
-const naiveDarkTheme = computed(() => (theme.value.mode === 'dark' ? darkTheme : undefined))
-const naiveLocale = computed(() => (app.value.locale === 'zh-CN' ? zhCN : enUS))
-const naiveDateLocale = computed(() => (app.value.locale === 'zh-CN' ? dateZhCN : dateEnUS))
+const naiveDarkTheme = computed(() => (state.value.theme.mode === 'dark' ? darkTheme : undefined))
+const naiveLocale = computed(() => (state.value.app.locale === 'zh-CN' ? zhCN : enUS))
+const naiveDateLocale = computed(() => (state.value.app.locale === 'zh-CN' ? dateZhCN : dateEnUS))
 const watermarkProps = computed<WatermarkProps>(() => {
   return {
-    content: userInfo.value?.username || app.value.name,
+    content: userInfo.value?.username || state.value.app.name,
     cross: true,
     fullscreen: true,
     fontSize: 16,
@@ -47,8 +47,9 @@ const watermarkProps = computed<WatermarkProps>(() => {
   >
     <NaiveProvider>
       <RouterView class="bg-layout" />
-      <NWatermark v-if="app.watermark" v-bind="watermarkProps" />
+      <NWatermark v-if="state.app.watermark" v-bind="watermarkProps" />
     </NaiveProvider>
+    <NGlobalStyle />
   </NConfigProvider>
 </template>
 

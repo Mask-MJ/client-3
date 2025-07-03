@@ -4,6 +4,7 @@ import parserVue from 'vue-eslint-parser'
 import js from '@eslint/js'
 import pluginTs from '@typescript-eslint/eslint-plugin'
 import parserTs from '@typescript-eslint/parser'
+import unocss from '@unocss/eslint-config/flat'
 import * as pluginImportX from 'eslint-plugin-import-x'
 import pluginPerfectionist from 'eslint-plugin-perfectionist'
 import pluginPrettier from 'eslint-plugin-prettier'
@@ -13,6 +14,7 @@ import pluginVue from 'eslint-plugin-vue'
 import globals from 'globals'
 
 export default defineConfigWithVueTs(
+  unocss,
   // vue
   {
     name: 'vue-files',

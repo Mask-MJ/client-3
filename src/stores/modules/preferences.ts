@@ -45,7 +45,7 @@ export const usePreferencesStore = defineStore('preferences-store', () => {
   )
 
   return {
-    ...state.value,
+    state,
     $reset: resetState,
     updatePreferences,
     isDarkTheme,
