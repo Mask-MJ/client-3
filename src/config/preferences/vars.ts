@@ -16,10 +16,12 @@ function createColorPaletteVars() {
 }
 
 const colorPaletteVars = createColorPaletteVars()
+
 /** Theme vars */
 export const themeVars = {
   colors: {
     ...colorPaletteVars,
+    nprogress: 'rgb(var(--nprogress-color))',
     container: 'rgb(var(--container-bg-color))',
     layout: 'rgb(var(--layout-bg-color))',
     inverted: 'rgb(var(--inverted-bg-color))',

@@ -1,4 +1,9 @@
-import type { Preferences, ThemeColor } from '@/config/preferences'
+import type {
+  AuthPageLayoutType,
+  Preferences,
+  SupportedLanguagesType,
+  ThemeColor,
+} from '@/config/preferences'
 
 import {
   createThemeToken,
@@ -6,6 +11,7 @@ import {
   getCssVarByTokens,
   initPreferences,
 } from '@/config/preferences'
+import { loadLocaleMessages } from '@/locales'
 import { useStyleTag } from '@vueuse/core'
 import { merge } from 'lodash-es'
 import { defineStore } from 'pinia'
@@ -33,8 +39,26 @@ export const usePreferencesStore = defineStore('preferences-store', () => {
     const { error, info, primary, success, warning } = state.value.theme
     return { error, info, primary, success, warning }
   })
-
+  // 当前主题是否为暗黑模式
   const isDarkTheme = computed(() => state.value.theme.mode === 'dark')
+  // 设置主题颜色
+  const setThemeColor = (color: string) => {
+    state.value.theme.primary = color
+  }
+  // 切换主题模式
+  const setThemeMode = () => {
+    state.value.theme.mode = isDarkTheme.value ? 'light' : 'dark'
+  }
+  // 设置认证页面布局
+  const setAuthPageLayout = (value: AuthPageLayoutType) => {
+    state.value.app.authPageLayout = value
+  }
+  // 设置语言
+  const setLanguage = async (value: SupportedLanguagesType) => {
+    if (!value) return
+    state.value.app.locale = value
+    await loadLocaleMessages(value)
+  }
 
   watch(
     themeColors,
@@ -49,5 +73,9 @@ export const usePreferencesStore = defineStore('preferences-store', () => {
     $reset: resetState,
     updatePreferences,
     isDarkTheme,
+    setThemeColor,
+    setThemeMode,
+    setAuthPageLayout,
+    setLanguage,
   }
 })

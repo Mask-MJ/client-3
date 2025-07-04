@@ -104,9 +104,11 @@ function createThemePaletteColors(colors: ThemeColor) {
  */
 export function createThemeToken(colors: ThemeColor) {
   const paletteColors = createThemePaletteColors(colors)
+
   const themeTokens = {
     colors: {
       ...paletteColors,
+      nprogress: paletteColors.primary,
       container: 'rgb(255, 255, 255)',
       layout: 'rgb(247, 250, 252)',
       inverted: 'rgb(0, 20, 40)',
@@ -144,7 +146,6 @@ export function createThemeToken(colors: ThemeColor) {
  */
 export function getCssVarByTokens(tokens: Record<string, Record<string, string>>) {
   const styles: string[] = []
-
   function removeVarPrefix(value: string) {
     return value.replace('var(', '').replace(')', '')
   }
@@ -166,6 +167,5 @@ export function getCssVarByTokens(tokens: Record<string, Record<string, string>>
   }
 
   const styleStr = styles.join(';')
-
   return styleStr
 }

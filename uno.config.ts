@@ -11,10 +11,9 @@ import { themeVars } from './src/config/preferences/vars'
 
 export default defineConfig({
   presets: [
-    presetWind3(),
+    presetWind3({ dark: 'class' }),
     presetIcons({
       collections: {
-        // mdi: () => import('@iconify-json/mdi/icons.json').then(i => i.default),
         lucide: () => import('@iconify-json/lucide/icons.json').then((i) => i.default),
         antDesign: () => import('@iconify-json/ant-design/icons.json').then((i) => i.default),
       },
@@ -25,10 +24,11 @@ export default defineConfig({
     ...themeVars,
   },
   shortcuts: [
-    ['flex-center', 'flex items-center justify-center'],
-    ['flex-between', 'flex items-center justify-between'],
-    ['flex-col-center', 'flex flex-col items-center justify-center'],
-    ['text-primary', `text-[var(--primary-color)]`],
+    ['flex-center', 'flex justify-center items-center'],
+    ['flex-between', 'flex justify-between items-center'],
+    ['flex-col', 'flex flex-col'],
+    ['flex-col-center', 'flex justify-center items-center flex-col'],
+    ['text-primary', 'text-[var(--primary-color)]'],
   ],
   transformers: [transformerDirectives(), transformerVariantGroup()],
   safelist: 'prose prose-sm m-auto text-left'.split(' '),
