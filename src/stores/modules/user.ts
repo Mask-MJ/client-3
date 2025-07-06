@@ -49,8 +49,6 @@ export const useUserStore = defineStore('user-store', () => {
 
   const setUserInfo = (info: UserInfo) => {
     userInfo.value = info
-    const roles = info?.roles.map((role) => role.name) ?? []
-    setUserRoles(roles)
   }
 
   const setUserRoles = (roles: string[]) => {

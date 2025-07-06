@@ -17,8 +17,8 @@ import { themeVars } from './vars'
 
 export function initPreferences() {
   // app.config.globalProperties.$preferences = usePreferencesStore();
-  const isProd = import.meta.env.PROD
-  if (!isProd) return DEFAULT_PREFERENCES
+  // const isProd = import.meta.env.PROD
+  // if (!isProd) return DEFAULT_PREFERENCES
   const preferences = useStorage('preferences-store', DEFAULT_PREFERENCES)
   return preferences.value
 }

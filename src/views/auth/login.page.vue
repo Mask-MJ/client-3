@@ -1,44 +1,16 @@
 <script lang="ts" setup>
-import type { FormInst } from 'naive-ui'
-
 import { $t } from '@/locales'
 
+import AuthenticationForm from './form.vue'
 import Toolbar from './toolbar.vue'
 
 defineOptions({ name: 'Login' })
 
-const userStore = useUserStore()
 const preferencesStore = usePreferencesStore()
-const loading = computed(() => userStore.loginLoading)
-const router = useRouter()
-const formRef = ref<FormInst | null>(null)
-const REMEMBER_ME_KEY = `REMEMBER_ME_USERNAME_${location.hostname}`
+
 const appName = computed(() => preferencesStore.state.app.name)
 const logo = computed(() => preferencesStore.state.logo.source)
 const authPageLayout = computed(() => preferencesStore.state.app.authPageLayout)
-
-const localUsername = localStorage.getItem(REMEMBER_ME_KEY) || ''
-
-const rememberMe = ref(!!localUsername)
-const model = ref<{ password: null | string; username: null | string }>({
-  username: null,
-  password: null,
-})
-
-async function handleSubmit(e: MouseEvent) {
-  e.preventDefault()
-  formRef.value?.validate((errors) => {
-    if (errors) {
-      window.$message.error('Invalid')
-    } else {
-      window.$message.success('Valid')
-    }
-  })
-}
-
-function handleGo(path: string) {
-  router.push(path)
-}
 </script>
 
 <template>
@@ -56,85 +28,20 @@ function handleGo(path: string) {
     </div>
     <Toolbar />
     <!-- 左侧认证面板 -->
-    <div
+    <NCard
       v-if="authPageLayout === 'panel-left'"
       class="min-h-full w-2/5 max-lg:flex-1"
       transition-name="slide-left"
+      :bordered="false"
     >
-      <div class="relative h-full flex-col-center px-6 lg:flex-initial lg:px-8">
-        <div class="enter-x w-full sm:mx-auto md:max-w-md">
-          <div class="mb-7 sm:mx-auto sm:max-w-md sm:w-full">
-            <h2
-              class="text-foreground mb-3 text-3xl font-bold leading-9 tracking-tight lg:text-4xl"
-            >
-              {{ `${$t('authentication.welcomeBack')} 👋🏻` }}
-            </h2>
-
-            <p class="text-muted-foreground lg:text-md text-sm">
-              <span class="text-muted-foreground">
-                {{ $t('authentication.loginSubtitle') }}
-              </span>
-            </p>
-          </div>
-          <NForm
-            ref="formRef"
-            :model="model"
-            size="large"
-            label-placement="left"
-            :rules="{
-              username: {
-                required: true,
-                message: $t('authentication.usernameTip'),
-                trigger: 'blur',
-              },
-              password: {
-                required: true,
-                message: $t('authentication.passwordErrorTip'),
-                trigger: ['input', 'blur'],
-              },
-            }"
-            @keydown.enter.prevent="handleSubmit"
-          >
-            <NFormItem path="username">
-              <NInput
-                v-model:value="model.username"
-                :placeholder="$t('authentication.usernameTip')"
-              />
-            </NFormItem>
-            <NFormItem path="password">
-              <NInput
-                v-model:value="model.password"
-                :placeholder="$t('authentication.passwordTip')"
-                type="password"
-              />
-            </NFormItem>
-          </NForm>
-          <div class="mb-6 flex justify-between">
-            <div class="flex-center">
-              <NCheckbox v-model:checked="rememberMe" name="rememberMe">
-                {{ $t('authentication.rememberMe') }}
-              </NCheckbox>
-            </div>
-
-            <span class="vben-link text-sm font-normal" @click="handleGo('/auth/forget-password')">
-              {{ $t('authentication.forgetPassword') }}
-            </span>
-          </div>
-          <NButton
-            :class="{ 'cursor-wait': loading }"
-            :loading="loading"
-            type="primary"
-            size="large"
-            class="w-full"
-            @click="handleSubmit"
-          >
-            {{ $t('common.login') }}
-          </NButton>
-        </div>
-      </div>
-    </div>
+      <AuthenticationForm />
+    </NCard>
     <!-- 系统介绍 -->
-    <NCard v-if="authPageLayout !== 'panel-center'" class="relative hidden flex-1 lg:block">
+    <NCard
+      v-if="authPageLayout !== 'panel-center'"
+      :bordered="false"
+      class="relative hidden flex-1 lg:block"
+    >
       <div class="absolute inset-0 h-full w-full">
         <div class="login-background absolute left-0 top-0 size-full"></div>
         <div class="-enter-x mr-20 h-full flex-col-center">
@@ -148,6 +55,21 @@ function handleGo(path: string) {
         </div>
       </div>
     </NCard>
+    <!-- 中心认证面板 -->
+    <div v-if="authPageLayout === 'panel-center'" class="relative w-full flex-center">
+      <div class="login-background absolute left-0 top-0 size-full"></div>
+      <NCard class="w-full rounded-3xl pb-20 shadow-primary/5 lg:w-1/2 md:w-2/3 xl:w-[36%]">
+        <AuthenticationForm />
+      </NCard>
+    </div>
+    <!-- 右侧认证面板 -->
+    <NCard
+      v-if="authPageLayout === 'panel-right'"
+      :bordered="false"
+      class="min-h-full w-[34%] max-lg:flex-1"
+    >
+      <AuthenticationForm />
+    </NCard>
   </div>
 </template>
 
@@ -159,18 +81,8 @@ meta:
 
 <style scoped>
 .login-background {
-  background: linear-gradient(154deg, #07070915 30%, rgba(24, 160, 88, 0.3) 48%, #07070915 64%);
+  background: linear-gradient(154deg, #0707094d 30%, var(--primary-color) 48%, #0707094d 64%);
+  filter: blur(100px);
+  opacity: 0.3;
 }
-
-/* .dark {
-  .login-background {
-    background: linear-gradient(
-      154deg,
-      #07070915 30%,
-      rgba(var(--primary-color), 0.2) 48%,
-      #07070915 64%
-    );
-    filter: blur(100px);
-  }
-} */
 </style>

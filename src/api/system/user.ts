@@ -7,11 +7,14 @@ export type SearchParams = operations['UserController_findAll']['parameters']['q
 export type SignInParams = components['schemas']['SignInDto']
 // 注册
 export function register(body: components['schemas']['SignUpDto']) {
-  return client.POST('/api/authentication/sign-up', { body })
+  return client.POST('/api/auth/authentication/sign-up', { body })
 }
 // 登录
 export function login(body: SignInParams) {
-  return client.POST('/api/authentication/sign-in', { body })
+  return client.POST('/api/auth/authentication/sign-in', {
+    params: { header: { 'X-Real-IP': '' } },
+    body,
+  })
 }
 // 获取自身用户信息
 export const getUserInfoApi = () => client.GET('/api/system/user/info')
@@ -41,5 +44,7 @@ export function updateUser(body: components['schemas']['UpdateUserDto']) {
 }
 // 删除用户
 export function deleteUser(id: number) {
-  return client.DELETE('/api/system/user/{id}', { params: { path: { id } } })
+  return client.DELETE('/api/system/user/{id}', {
+    params: { header: { 'X-Real-IP': '' }, path: { id } },
+  })
 }
